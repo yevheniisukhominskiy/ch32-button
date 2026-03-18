@@ -1,0 +1,10 @@
+# Ignore all project files and temporary folders
+/*
+
+# Allow only library and examples
+!/lib/
+!/example/
+!/README.MD
+
+# Allow .gitignore itself
+!/.gitignore
