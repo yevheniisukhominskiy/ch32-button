@@ -1,5 +1,5 @@
 <p align="center">
-    <img src="https://img.shields.io/github/v/release/yevheniisukhominskiy/ch32-button?style=for-the-badge" alt="Version">
+    <img src="https://img.shields.io/badge/version-1.0-blue?style=for-the-badge" alt="Version">
     <img alt="GitHub code size in bytes" src="https://img.shields.io/github/languages/code-size/yevheniisukhominskiy/ch32-button?style=for-the-badge">
      <img src="https://img.shields.io/github/license/yevheniisukhominskiy/ch32-button?style=for-the-badge" alt="License">
 </p>
