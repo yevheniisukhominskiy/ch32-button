@@ -5,6 +5,7 @@
 !/lib/
 !/example/
 !/README.MD
+!/LICENSE
 
 # Allow .gitignore itself
 !/.gitignore
