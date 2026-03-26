@@ -1,5 +1,5 @@
 <p align="center">
-    <img src="https://img.shields.io/badge/version-1.0-blue?style=for-the-badge" alt="Version">
+    <img src="https://img.shields.io/badge/version-1.1-blue?style=for-the-badge" alt="Version">
     <img alt="GitHub code size in bytes" src="https://img.shields.io/github/languages/code-size/yevheniisukhominskiy/ch32-button?style=for-the-badge">
      <img src="https://img.shields.io/github/license/yevheniisukhominskiy/ch32-button?style=for-the-badge" alt="License">
 </p>
@@ -33,11 +33,15 @@
 - `BTN_STEP_HOLDING`: 1000 мс
 
 ### Основні функції
-- `button_init(btn, port, pin)` — ініціалізація структури кнопки. Пін автоматично налаштовується на вхід з підтяжкою.
+- `button_init(btn)` — ініціалізація структури кнопки. Пін автоматично налаштовується відповідно до обраного режиму (`mode`).
 - `button_tick(btn)` — тікер, який обробляє стан кнопки. Має бути в головному циклі.
 - `button_click(btn)` — повертає `true`, якщо був одиночний клік.
 - `button_hold(btn)` — повертає `true`, якщо кнопку утримували довше `BTN_HOLD`.
 - `button_holding(btn, period)` — повертає `true` через рівні проміжки часу, поки кнопка тримається затиснутою.
+
+### Режими підтяжки (Mode_t)
+- `PULL_UP` — внутрішня підтяжка до живлення (активний рівень LOW).
+- `PULL_DOWN` — внутрішня підтяжка до землі (активний рівень HIGH).
 
 <a id="example"></a>
 
@@ -50,19 +54,24 @@
 #include "time.h"
 #include "button.h"
 
-Button_t btn1;
+// Створюємо структуру кнопки з налаштуваннями
+Button_t btn1 = {
+    .port = GPIOD,
+    .pin = GPIO_Pin_7,
+    .mode = PULL_UP,
+};
 
 int main(void) {
     SystemCoreClockUpdate();
     
-    // Ініціалізація периферії та системного тактів 
+    // Ініціалізація периферії
     RCC_PB2PeriphClockCmd(RCC_PB2Periph_GPIOD, ENABLE);
 
-    // Ініціалізація систеймного таймеру (ОБОВ`ЯЗКОВА ЗАЛЕЖНІСТЬ)
+    // Ініціалізація системного таймеру (ОБОВ`ЯЗКОВА ЗАЛЕЖНІСТЬ)
     systick_init();
 
-    // Налаштовуємо кнопку на GPIOD Пін 7
-    button_init(&btn1, GPIOD, GPIO_Pin_7);
+    // Ініціалізація кнопки
+    button_init(&btn1);
 
     while(1) {
         // Опитування стану кнопки
@@ -90,6 +99,7 @@ int main(void) {
 
 ## Версії
 - **v1.0** — реліз базового функціоналу.
+- **v1.1** — перероблена ініціалізація, додано вибір підтяжки (PULL_UP/PULL_DOWN).
 
 <a id="install"></a>
 
